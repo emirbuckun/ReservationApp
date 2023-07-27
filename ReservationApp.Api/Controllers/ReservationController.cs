@@ -18,7 +18,6 @@ namespace ReservationApp.Api.Controllers
             _set = _context.Set<Reservation>();
         }
 
-
         [HttpGet]
         [Route("list")]
         public async Task<List<Reservation>> Get()
@@ -50,7 +49,6 @@ namespace ReservationApp.Api.Controllers
             _set.Update(request);
             await _context.SaveChangesAsync();
             return request;
-
         }
 
         [HttpDelete]
