@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Diagnostics;
 using ReservationApp.Api.DbContext;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,7 +22,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseExceptionHandler();
+app.UseExceptionHandler(c => c.Run(async context =>
+{
+    var exception = context.Features
+        .Get<IExceptionHandlerPathFeature>()
+        .Error;
+    var response = new { error = exception.Message };
+    await context.Response.WriteAsJsonAsync(response);
+}));
 
 app.UseAuthorization();
 
