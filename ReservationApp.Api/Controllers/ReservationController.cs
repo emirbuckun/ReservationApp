@@ -2,7 +2,6 @@
 using ReservationApp.Api.Entity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.IO.Compression;
 
 namespace ReservationApp.Api.Controllers
 {
@@ -47,7 +46,8 @@ namespace ReservationApp.Api.Controllers
         public async Task<List<Reservation>?> Get(DateTime startDate, DateTime endDate)
         {
             if (startDate > endDate) return null;
-            var entity = await _set.Where(x => x.ReservationDate.Date >= startDate.Date && x.ReservationDate.Date <= endDate.Date).ToListAsync();
+            var entity = await _set.Where(x => x.ReservationDate.Date >= startDate.Date &&
+                x.ReservationDate.Date <= endDate.Date).ToListAsync();
             return entity;
         }
 
